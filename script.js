@@ -171,17 +171,18 @@ var allChars = [
 
 let randomOuterIndex = [Math.floor(Math.random())*allChars.length] //why is this always returning 0? Or if you change it to show the whole array it only shows special characters (the zero index array?)
 
-let chosenInnerArray = allChars[randomOuterIndex]
-let randomInnerIndex = [Math.floor(Math.random())*chosenInnerArray.length]
-let randomChar = randomOuterIndex[randomInnerIndex]
+let chosenInnerArray = allChars[randomOuterIndex];
+let randomInnerIndex = [Math.floor(Math.random())*chosenInnerArray.length];
+let randomChar = randomOuterIndex[randomInnerIndex];
 
 
 
-//is this corrected syntax??????
+//Xpert Learning Assistant suggests corrected syntax to above, but still returning 0 as randomOuterIndex
 let randomOuterIndex = Math.floor(Math.random() * allChars.length);
 let chosenInnerArray = allChars[randomOuterIndex];
 let randomInnerIndex = Math.floor(Math.random() * chosenInnerArray.length);
 let randomChar = chosenInnerArray[randomInnerIndex];
+
 
 // Function to generate password with user input
 function generatePassword() {
