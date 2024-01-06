@@ -107,7 +107,7 @@ var upperCasedCharacters = [
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-  //should the below be within the function?
+  //should the below be within the function? Why do I need a function called getPasswordOptions? What does this suggest I should be asking?
 
   let numChars = prompt ("Type a length in for your password. It will need to have between 8 and 128 characters inclusive")
  
@@ -115,6 +115,7 @@ function getPasswordOptions() {
     prompt ("Your password will not satisfy the security criteria for length. Pick a number between 8 and 128 inclusive") //do I need to name a new variable here? can I do let numChars = again?
   } else {
    alert ("To fulfill security criteria, your password will need to contain a mixture of numbers, special characters and letters in both upper and lower case");
+   prompt ("Your password will not satisfy the security criteria for length. Pick a number between 8 and 128 inclusive") //is this redundant having this here? Should I loop?
   } 
   //can an alert be an else condition?
 
@@ -122,24 +123,24 @@ function getPasswordOptions() {
 
  let firstChar = prompt ("What type of character would you like your password to start with? Choose n for number, u for uppercase letter, l for lowercase letter and s for special character")
  
-//  if (firstChar == n || firstChar !== u || firstChar !== l || firstChar !== s) {
-//   //is there one step to make the input value n or u or l or s a variable straight off? Will double equals also do the trick for case? Do I need to convert to all lowercase for example (firstChar.toLowerCase) or somehow set sensitivity?
-//  }
+
+//is there one step to make the input value (n or u or l or s) a variable straight off rather than have the below else ifs? Do I need to convert to all lowercase for example (firstChar.toLowerCase) or use another method for case sensitivity?
 
  //doing these separately - and can I use the toLowerCase function in here?:
  //do these go in generatePassword section?
+
  if (firstChar.toLowerCase() == n) {
   return
-    getRandom(numericCharacters) + randomChar *numChars //this is approximate; check strings and def of randomChar
+    getRandom(numericCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
  } else if (firstChar.toLowerCase() == u) {
   return
-    getRandom(upperCasedCharacters) + randomChar *numChars
+    getRandom(upperCasedCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
  } else if (firstChar.toLowerCase() == l) {
   return
-  getRandom(lowerCasedCharacters) + randomChar *numChars
+  getRandom(lowerCasedCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
  } else if (firstChar.toLowerCase() == s) {
   return
-    getRandom(specialCharacters) + randomChar *numChars
+    getRandom(specialCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
  }
 
 
@@ -176,20 +177,18 @@ let randomChar = randomOuterIndex[randomInnerIndex]
 
 
 
-
-
-
-
-
-
-
-
-
+//is this corrected syntax??????
+let randomOuterIndex = Math.floor(Math.random() * allChars.length);
+let chosenInnerArray = allChars[randomOuterIndex];
+let randomInnerIndex = Math.floor(Math.random() * chosenInnerArray.length);
+let randomChar = chosenInnerArray[randomInnerIndex];
 
 // Function to generate password with user input
 function generatePassword() {
 
 }
+
+//I am currently generating the password in the getPasswordOptions section above - am I approaching these functions in the wrong way?
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
