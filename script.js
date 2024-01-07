@@ -101,61 +101,51 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-
+//you can combine arrays using spread operators; in this case they total 85
+var spreadChars = [...specialCharacters, ...numericCharacters, ...lowerCasedCharacters, ...upperCasedCharacters]
 
 
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-  //should the below be within the function? Why do I need a function called getPasswordOptions? What does this suggest I should be asking?
+//Why does it need a function?
 
-  let numChars = prompt ("Type a length in for your password. It will need to have between 8 and 128 characters inclusive")
- 
-  if (numChars < 8 || numChars > 128) { //DO I NEED TO PUT SEPARATE BRACKETS FOR AN OR? DO I NEED A SEPARATE IF STATEMENT?)
-    prompt ("Your password will not satisfy the security criteria for length. Pick a number between 8 and 128 inclusive") //do I need to name a new variable here? can I do let numChars = again?
-  } else {
-   alert ("To fulfill security criteria, your password will need to contain a mixture of numbers, special characters and letters in both upper and lower case");
-   prompt ("Your password will not satisfy the security criteria for length. Pick a number between 8 and 128 inclusive") //is this redundant having this here? Should I loop?
-  } 
-  //can an alert be an else condition?
 
- //do i need some kind of THEN condition, or will it move onto the next step after OK is hit on the alert?
+let numChars = prompt("Type a length for your password. It should have between 8 and 128 characters inclusive");
 
- let firstChar = prompt ("What type of character would you like your password to start with? Choose n for number, u for uppercase letter, l for lowercase letter and s for special character")
- 
+while (numChars < 8 || numChars > 128) {
+  numChars = prompt("Your password length does not satisfy the security criteria. Please choose a number between 8 and 128 inclusive");
+}
 
-//is there one step to make the input value (n or u or l or s) a variable straight off rather than have the below else ifs? Do I need to convert to all lowercase for example (firstChar.toLowerCase) or use another method for case sensitivity?
+alert ("To fulfill security criteria, your password will need to contain a mixture of numbers, special characters and letters in both upper and lower case");
 
- //doing these separately - and can I use the toLowerCase function in here?:
- //do these go in generatePassword section?
+let firstChar = prompt("What type of character would you like your password to start with? Choose n for number, u for uppercase letter, l for lowercase letter, or s for special character");
 
- if (firstChar.toLowerCase() == n) {
-  return
-    getRandom(numericCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
- } else if (firstChar.toLowerCase() == u) {
-  return
-    getRandom(upperCasedCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
- } else if (firstChar.toLowerCase() == l) {
-  return
-  getRandom(lowerCasedCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
- } else if (firstChar.toLowerCase() == s) {
-  return
-    getRandom(specialCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
- }
-
+//NOW GO TO generatePassword() FUNCTION SECTION BELOW
 
 }
 
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-  return arr[Math.floor(Math.random())*arr.length];
+  return arr[Math.floor(Math.random()*arr.length)];
 }
 
 
-//Is there any way of performing a fair getRandom * passwordLength which picks randomly from any of the four arrays?  Do I need a for loop to iterate * numChars-1 (as I will have specified the first character)? Do I then need a loop inside a loop if I make an array of arrays? 
+//I wrote this FUNCTION as I seemed to have some problems assigning random outputs to variables.
+// function pickRand(allChars) {
+//   var index = Math.floor(Math.random() * allChars.length);
+//   return allChars[index];
+// }
+// var randomArray = pickRand(allChars); 
+// var randomChoiceCharacter = randomArray[Math.floor(Math.random() * randomArray.length)] //again the problem of randomArray.length always equalling 1
+// //console.log(randomChoiceCharacter) //this gives the whole array, as does substituting in the function name:
+// //var randomChoiceCharacter = pickRand(allChars)[Math.floor(Math.random() * pickRand(allChars).length)] 
 
-//let me create an array of arrays i.e. a multidimensional array:
+
+//Do I need a for loop to iterate * numChars-1 (as I will have specified the first character)? Do I then need a loop inside a loop if I make an array of arrays? 
+
+//Otherwise, let me create an array of arrays i.e. a multidimensional array:
 
 var allChars = [
   [specialCharacters],
@@ -164,32 +154,48 @@ var allChars = [
   [upperCasedCharacters]
 ]
 
-//So now I need to choose x number of characters where x = numChars (picked from the input to the prompt)
-
+//So now I need to choose x number of random characters where x = numChars (picked from the input to the prompt)
 //I will need to pick a character from allChars using a random outer and inner array index number with syntax [x] [y]
+//BUT I CAN'T SEEM TO MAKE THE OUTER INDEX/INNER INDEX WAY WORK!
+var outerIndex = Math.floor(Math.random() * allChars.length);
+var innerArray = allChars[outerIndex];
+var innerIndex = Math.floor(Math.random() * innerArray.length); //this is where the problem starts; innerIndex is 0, probably because innerArray.length seems to be 1; is this because it is ONE ARRAY????
+var randomChar = innerArray[innerIndex];
+alert(Math.floor(Math.random() * allChars.length))
+
+//console.log(randomChar); // this gives a whole array preceded by number of elements only
+//console.log(innerArray); // this gives a random array and number of elements e.g [Array(26)]
+//console.log(innerIndex); //this is constantly giving zero = why? Probs because innerArray.length is somehow always 1
+//console.log(allChars[outerIndex]); // this gives a random array and number of elements e.g [Array(26)]
+//console.log(outerIndex); //this generates a random integer between 0 and 3 inclusive
+//console.log(innerArray.length); // this is always 1
+//console.log((innerArray[innerIndex])[innerIndex]); //gives a random first element of one of the four arrays (so A, a, @ or 0) because it's treating innerIndex as zero.
+//innerArray[innerIndex] keeps logging the whole array in brackets, but without being prefixed with Array (and number of elements); if you change innerIndex to anything other than 0, it is undefined.
 
 
-let randomOuterIndex = [Math.floor(Math.random())*allChars.length] //why is this always returning 0? Or if you change it to show the whole array it only shows special characters (the zero index array?)
-
-let chosenInnerArray = allChars[randomOuterIndex];
-let randomInnerIndex = [Math.floor(Math.random())*chosenInnerArray.length];
-let randomChar = randomOuterIndex[randomInnerIndex];
 
 
-
-//Xpert Learning Assistant suggests corrected syntax to above, but still returning 0 as randomOuterIndex
-let randomOuterIndex = Math.floor(Math.random() * allChars.length);
-let chosenInnerArray = allChars[randomOuterIndex];
-let randomInnerIndex = Math.floor(Math.random() * chosenInnerArray.length);
-let randomChar = chosenInnerArray[randomInnerIndex];
 
 
 // Function to generate password with user input
 function generatePassword() {
 
+//is there one step to make the input value (n or u or l or s) a variable straight off rather than have the below else ifs? Do I need to convert to all lowercase for example (firstChar.toLowerCase) or use another method for case sensitivity?
+
+ if (firstChar.toLowerCase() === 'n') {
+    result = getRandom(numericCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
+ } else if (firstChar.toLowerCase() === 'u') {
+  result = getRandom(upperCasedCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
+ } else if (firstChar.toLowerCase() === 'l') {
+  result = getRandom(lowerCasedCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
+ } else if (firstChar.toLowerCase() === 's') {
+  result = getRandom(specialCharacters) + randomChar *numChars //VERY ROUGH IDEA!  
+ } else {} //condition if other character is entered
+
+ return result; //DO I NEED ANY RETURNS ABOVE?? SHOULD I BE INTRODUCING THE VARIABLE 'PASSWORD' YET?
+
 }
 
-//I am currently generating the password in the getPasswordOptions section above - am I approaching these functions in the wrong way?
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
