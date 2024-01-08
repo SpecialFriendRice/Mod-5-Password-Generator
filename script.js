@@ -101,35 +101,56 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-//you can combine arrays using spread operators; in this case they total 85
-var spreadChars = [...specialCharacters, ...numericCharacters, ...lowerCasedCharacters, ...upperCasedCharacters]
+//you can combine arrays using spread operators; in this case they total 85 characters
+//var spreadChars = [...specialCharacters, ...numericCharacters, ...lowerCasedCharacters, ...upperCasedCharacters]
 
-
-// Function to prompt user for password options
-function getPasswordOptions() {
-
-//Why does it need a function?
-
-
-let numChars = prompt("Type a length for your password. It should have between 8 and 128 characters inclusive");
+var numChars = prompt("Type a length for your password. It should have between 8 and 128 characters inclusive");
 
 while (numChars < 8 || numChars > 128) {
   numChars = prompt("Your password length does not satisfy the security criteria. Please choose a number between 8 and 128 inclusive");
 }
 
-alert ("To fulfill security criteria, your password will need to contain a mixture of numbers, special characters and letters in both upper and lower case");
+alert ("To fulfil security criteria, your password should contain a mixture of numbers, special characters and letters in both upper and lower case");
 
-let firstChar = prompt("What type of character would you like your password to start with? Choose n for number, u for uppercase letter, l for lowercase letter, or s for special character");
+var incLower = confirm ("Would you like to include lowercase letters in your password?")
+var incUpper = confirm ("Would you like to include uppercase letters in your password?")
+var incNum = confirm ("Would you like to include numeric values in your password?")
+var incSpec = confirm ("Would you like to include special characters in your password?")
 
-//NOW GO TO generatePassword() FUNCTION SECTION BELOW
+// declare (?) an empty array to which you will add
+var chosenChars = []
 
-}
+// Function to prompt user for password options
+function getPasswordOptions(incLower, incUpper, incNum, incSpec) { //do I need numChars as a parameter/argument here?)
+  if (incLower) {
+    chosenChars = [...chosenChars, ...lowerCasedCharacters]; 
+  } if (incUpper) {
+    chosenChars = [...chosenChars, ...upperCasedCharacters];
+  } if (incNum) {
+    chosenChars = [...chosenChars,  ...numericCharacters];
+  } if (incSpec) {
+    chosenChars = [...chosenChars,  ...specialCharacters];
+  } else // what is the condition if all confirms are answered in the negative? Does it need to be a WHILE here or above?
+//do i need to return a result or array?
+
+
+//how can I best see if this is working?
+// console.log(chosenChars);
+// }
+// getPasswordOptions(true, true, true, true);
 
 
 // Function for getting a random element from an array
 function getRandom(arr) {
   return arr[Math.floor(Math.random()*arr.length)];
 }
+
+for (let i = 0; i <numChars; index++) {
+  let randomPass = [Math.floor(Math.random()*chosenChars.length)];
+  
+}
+
+
 
 
 //I wrote this FUNCTION as I seemed to have some problems assigning random outputs to variables.
@@ -161,7 +182,7 @@ var outerIndex = Math.floor(Math.random() * allChars.length);
 var innerArray = allChars[outerIndex];
 var innerIndex = Math.floor(Math.random() * innerArray.length); //this is where the problem starts; innerIndex is 0, probably because innerArray.length seems to be 1; is this because it is ONE ARRAY????
 var randomChar = innerArray[innerIndex];
-alert(Math.floor(Math.random() * allChars.length))
+
 
 //console.log(randomChar); // this gives a whole array preceded by number of elements only
 //console.log(innerArray); // this gives a random array and number of elements e.g [Array(26)]
